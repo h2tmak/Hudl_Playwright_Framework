@@ -45,7 +45,7 @@ Never commit `.env` or put credentials in test code. Tests that require account 
 npm test
 npm run test:headed
 npm run test:ui
-npx playwright test tests/login/login.spec.ts
+npx playwright test tests/login/validLogin.spec.ts
 npx playwright test --project=chromium
 ```
 
