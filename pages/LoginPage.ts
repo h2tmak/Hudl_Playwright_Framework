@@ -7,6 +7,7 @@ export class LoginPage {
   readonly continueButton: Locator;
   readonly forgotPasswordLink: Locator;
   readonly loginHeading: Locator;
+  readonly resetPasswordHeading: Locator;
 
   constructor(private readonly page: Page) {
     this.emailInput = page.getByRole('textbox', { name: /email/i });
@@ -20,6 +21,10 @@ export class LoginPage {
     });
     this.loginHeading = page.getByRole('heading', {
       name: 'Log In',
+      exact: true,
+    });
+    this.resetPasswordHeading = page.getByRole('heading', {
+      name: 'Reset Password',
       exact: true,
     });
   }
