@@ -2,6 +2,17 @@
 
 Production-oriented Playwright and TypeScript tests for Hudl's login and password-reset flows. The framework uses Page Object Model, isolated browser contexts, cross-browser projects, and environment-based credentials.
 
+## Repository
+
+GitHub: [h2tmak/Hudl_Playwright_Framework](https://github.com/h2tmak/Hudl_Playwright_Framework)
+
+Clone the repository and enter its folder:
+
+```shell
+git clone https://github.com/h2tmak/Hudl_Playwright_Framework.git
+cd Hudl_Playwright_Framework
+```
+
 ## Prerequisites
 
 - Node.js 24 or later
