@@ -78,6 +78,13 @@ Husky runs lint, formatting, and the test suite before a commit. Browser binarie
 
 The GitHub Actions workflow runs lint and type checks, then tests each browser in a separate matrix job. Configure the `HUDL_EMAIL` and `HUDL_PASSWORD` repository or environment secrets for authenticated coverage. The HTML reports are uploaded after each run; test artifacts are uploaded on failure.
 
+## Design rationale
+
+- **Architecture:** Page objects centralize reusable login interactions and keep test scenarios focused on behavior, making UI updates easier to maintain.
+- **Locators:** Accessible roles and names are preferred over brittle CSS or XPath selectors, so tests reflect how users find and interact with controls.
+- **Test data:** Non-sensitive scenario data lives in `fixtures/testData.ts`; credentials are read from environment variables and never stored in test code.
+- **CI/CD:** A browser matrix runs Chromium, Firefox, and WebKit independently. Lint and type checks catch issues early, while uploaded reports and failure artifacts help diagnose problems.
+
 ## Project layout
 
 ```text
