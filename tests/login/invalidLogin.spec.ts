@@ -2,16 +2,10 @@ import { expect, test } from '@playwright/test';
 import { messages } from '../../constants/messages';
 import { loginTestData } from '../../fixtures/testData';
 import { LoginPage } from '../../pages/LoginPage';
-import { getLoginCredentials, hasLoginCredentials } from '../../utils/env';
+import { getLoginCredentials } from '../../utils/env';
 
-test.describe('Hudl login validation', () => {
-  test('shows an authentication error for an invalid password', async ({
-    page,
-  }) => {
-    test.skip(
-      !hasLoginCredentials(),
-      'Set HUDL_EMAIL and HUDL_PASSWORD to run this test.',
-    );
+test.describe('Hudl login validation with invalid credentials', () => {
+  test('shows an error for an invalid password', async ({ page }) => {
     const { email } = getLoginCredentials();
     const loginPage = new LoginPage(page);
 
@@ -35,12 +29,14 @@ test.describe('Hudl login validation', () => {
     await expect(loginPage.passwordInput).toBeHidden();
   });
 
-  test('keeps the email step open when email credential is empty', async ({
+  test('requires an email address when continuing with empty credentials', async ({
     page,
   }) => {
     const loginPage = new LoginPage(page);
 
     await loginPage.navigateToLogin();
+
+    await expect(loginPage.emailInput).toHaveAttribute('required', '');
     await loginPage.continueButton.click();
 
     await expect(loginPage.emailInput).toHaveAttribute('type', 'email');
@@ -57,15 +53,5 @@ test.describe('Hudl login validation', () => {
 
     await expect(loginPage.passwordInput).toHaveAttribute('required', '');
     await expect(loginPage.passwordInput).toBeVisible();
-  });
-
-  test('requires an email address', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-
-    await loginPage.navigateToLogin();
-
-    await expect(loginPage.emailInput).toHaveAttribute('required', '');
-    await loginPage.continueButton.click();
-    await expect(loginPage.passwordInput).toBeHidden();
   });
 });

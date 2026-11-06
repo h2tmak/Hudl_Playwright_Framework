@@ -17,7 +17,3 @@ export function getLoginCredentials(): LoginCredentials {
 
   return { email, password };
 }
-
-export function hasLoginCredentials(): boolean {
-  return Boolean(process.env.HUDL_EMAIL?.trim() && process.env.HUDL_PASSWORD);
-}
