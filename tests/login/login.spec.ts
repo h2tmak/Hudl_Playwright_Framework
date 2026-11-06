@@ -1,13 +1,20 @@
 import { expect, test } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
-import { getLoginCredentials, hasLoginCredentials } from '../../utils/env';
+import { getLoginCredentials } from '../../utils/env';
 
 test.describe('Hudl login', () => {
+  test.afterEach(async ({ page }, testInfo) => {
+    if (testInfo.status === 'skipped') {
+      return;
+    }
+
+    await testInfo.attach('validation-screenshot', {
+      body: await page.screenshot({ fullPage: true }),
+      contentType: 'image/png',
+    });
+  });
+
   test('logs in with valid credentials', async ({ page }) => {
-    test.skip(
-      !hasLoginCredentials(),
-      'Set HUDL_EMAIL and HUDL_PASSWORD to run this test.',
-    );
     const { email, password } = getLoginCredentials();
     const loginPage = new LoginPage(page);
 

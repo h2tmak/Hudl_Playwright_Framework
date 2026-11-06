@@ -16,3 +16,14 @@ test('navigates to the password reset flow', async ({ page }) => {
   await expect(page).toHaveURL(/\/u\/reset-password\/request\//);
   await expect(resetPasswordHeading).toBeVisible();
 });
+
+test.afterEach(async ({ page }, testInfo) => {
+  if (testInfo.status === 'skipped') {
+    return;
+  }
+
+  await testInfo.attach('validation-screenshot', {
+    body: await page.screenshot({ fullPage: true }),
+    contentType: 'image/png',
+  });
+});
