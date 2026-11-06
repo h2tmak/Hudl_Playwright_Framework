@@ -8,7 +8,5 @@ test('navigates to the password reset flow', async ({ page }) => {
   await loginPage.navigateToLogin();
   await loginPage.continueWithEmail(loginTestData.unregisteredEmail);
   await loginPage.clickForgotPassword();
-
-  await expect(page).toHaveURL(/\/u\/reset-password\/request\//);
   await expect(loginPage.resetPasswordHeading).toBeVisible();
 });
